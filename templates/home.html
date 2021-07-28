@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<main class="px-3 mt-5">
+
+  {% if msg %}
+          <h1>{{ msg }}</h1>
+      {% endif %}
+
+  <h1>OCR Presentation</h1>
+
+  <form class="container-sm mt-5" method=post enctype=multipart/form-data>
+    <div class="container-sm input-group">
+      <input type="file" name="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+      <button class="btn btn-outline-secondary" type="submit" value="Upload" id="inputGroupFileAddon04">Process</button>
+    </div>
+  </form>
+
+
+  <div class="container">
+
+      {% if img_src %}
+        <img class="mt-5 mb-5" src="{{ img_src }}">
+        {% else %}
+
+        {% endif %}
+  </div>
+
+  <div class="container-sm mt-5 mb-5">
+    {% if extracted_text %}
+      {{ extracted_text }}
+    {% else %}
+      The extracted text will be displayed here
+    {% endif %}
+  </div>
+</main>
+
+<footer class="text-white-50 text-center mt-5 mb-2 fixed-bottom">
+  <p>Presentation for <a href="https://rt-app.io/" class="text-white">RT App</a>, by <a href="https://radekwarowny.github.io/" class="text-white">Radek Warowny</a>.</p>
+</footer>
+
+{% endblock content %}
