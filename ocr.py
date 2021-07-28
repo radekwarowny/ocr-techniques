@@ -7,7 +7,7 @@ import pytesseract
 
 def ocr_core(filename):
     """ OCR processing of images. """
-    pytesseract.pytesseract.tesseract_cmd = '/app/vendor/tesseract-ocr/bin/tesseract'
+    #pytesseract.pytesseract.tesseract_cmd = '/app/vendor/tesseract-ocr/bin/tesseract'
     # Using Pillow to open image and pytesseract to read string in the image
     text = pytesseract.image_to_string(Image.open(filename))
     # print(filename)
