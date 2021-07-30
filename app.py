@@ -2,8 +2,6 @@ import os
 from flask import Flask, redirect, render_template, url_for, request
 from PIL import Image
 from ocr import ocr_core
-from localise_text_tesseract import ocr_box_bounding
-
 
 # folder to store and later serve the images
 UPLOAD_FOLDER = '/static/uploads/'
