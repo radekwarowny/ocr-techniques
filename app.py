@@ -2,6 +2,7 @@ import os
 from flask import Flask, redirect, render_template, url_for, request
 from PIL import Image
 from ocr import ocr_core
+from localise_text_tesseract import ocr_box_bounding
 
 
 # folder to store and later serve the images
@@ -32,8 +33,12 @@ def home():
         if file and allowed_file(file.filename):
 
             # call the OCR function on it
-            extracted_text = ocr_core(file)
-            extracted_info = localise_text_tesseract(file)
+            extracted_data = ocr_core(file)
+            extracted_text = extracted_data[0]
+            shop_name = extracted_data[1]
+            total1 = extracted_data[2]
+            total2 = extracted_data[3]
+
             size = 500, 500
             with Image.open(file) as im:
                 im.thumbnail(size, Image.ANTIALIAS)
@@ -41,7 +46,7 @@ def home():
             # extract the text and display it
             return render_template('home.html',
                                    msg='Successfully processed',
-                                   extracted_text=extracted_text,
+                                   extracted_text=extracted_text, shop_name=shop_name, total1=total1, total2=total2,
                                    img_src=UPLOAD_FOLDER + file.filename)
     elif request.method == 'GET':
         return render_template('home.html')

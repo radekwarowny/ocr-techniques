@@ -1,39 +1,83 @@
 {% extends "layout.html" %}
 {% block content %}
-
 <main class="px-3 mt-5">
 
-  {% if msg %}
-          <h1>{{ msg }}</h1>
-      {% endif %}
-
-  <h1>OCR Presentation</h1>
-
-  <form class="container-sm mt-5" method=post enctype=multipart/form-data>
-    <div class="container-sm input-group">
-      <input type="file" name="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-      <button class="btn btn-outline-secondary" type="submit" value="Upload" id="inputGroupFileAddon04">Process</button>
+  <div class="container col-xxl-8 px-4 py-5 ">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6 rounded-3">
+        {% if img_src %}
+        <img class="mt-5 mb-5 border border-5 rounded-3" src="{{ img_src }}">
+        {% else %}
+        {% endif %}
+      </div>
+      <div class="col-lg-6">
+        {% if msg %}
+        <h1>{{ msg }}</h1>
+        {% endif %}
+        <h1 class="display-5 fw-bold lh-1 mb-3">OCR Presentation</h1>
+        <form class="container-sm mt-5" method=post enctype=multipart/form-data>
+          <div class="container-sm input-group">
+            <input type="file" name="file" class="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+            <button class="btn btn-outline-secondary" type="submit" value="Upload">Process</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </form>
+  </div>
 
+  <div class="container col-xxl-8 px-4 py-5 ">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6 rounded-3">
+        {% if img_src %}
+        <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+          Show Text
+        </a>
+        {% else %}
+        {% endif %}
+      </div>
+      <div class="col-lg-6">
+        <h2>Findings</h2>
 
-  <div class="container">
-
-      {% if img_src %}
-        <img class="mt-5 mb-5" src="{{ img_src }}">
+        {% if shop_name %}
+        <p>I think this is {{ shop_name }}</p>
+        {% elif shop_name == "" %}
+        <p>I'm not sure what the shop name is.</p>
         {% else %}
 
         {% endif %}
+
+        {% if total1 != False%}
+        <p>I think the total is {{ total1 }}</p>
+        {% else %}
+
+        {% endif %}
+
+        {% if total2 != False %}
+        <p>Is {{ total2}} the sub-total?</p>
+        {% else %}
+
+        {% endif %}
+      </div>
+    </div>
   </div>
 
-  <div class="container-sm mt-5 mb-5">
-    {% if extracted_text %}
-      {{ extracted_text }}
-    {% else %}
-      The extracted text will be displayed here
-    {% endif %}
-  </div>
 </main>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title text-dark" id="offcanvasExampleLabel">Extracted Text</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="text-dark">
+      {% if extracted_text %}
+      {{ extracted_text }}
+      {% else %}
+      {% endif %}
+    </div>
+
+  </div>
+</div>
 
 <footer class="text-white-50 text-center mt-5 mb-2 fixed-bottom">
   <p>Presentation for <a href="https://rt-app.io/" class="text-white">RT App</a>, by <a href="https://radekwarowny.github.io/" class="text-white">Radek Warowny</a>.</p>

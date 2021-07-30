@@ -4,7 +4,7 @@ import pytesseract
 import argparse
 import cv2
 
-filename = 'Tesco.jpg'
+filename = 'tesco/asda.png'
 
 
 def ocr_box_bounding(filename):
@@ -50,48 +50,42 @@ def ocr_box_bounding(filename):
             # strip out non-ASCII text so we can draw the text on the image
             # using OpenCV, then draw a bounding box around the text along with the text itself
             text = "".join([c if ord(c) < 128 else "" for c in text]).strip()
-            cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv2.putText(image, text, (x, y -10), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 0, 255), 3)
+            # cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            # cv2.putText(image, text, (x, y -10), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 0, 255), 3)
 
     # show the output image
 
     #cv2.imshow("Image", image)
     #cv2.waitKey(0)
 
-    return results
+    # converting results dict to list of only words
+    list_of_words = results.get('text')
+    # listing key words
+    store_names = ['TESCO', 'MORRISONS', 'M & S', 'M & S FOOD', 'LIDL', 'SAINSBURY\'S', 'ASDA']
+    total_price_words = ['TOTAL', 'SUBTOTAL', 'SUB-TOTAL']
 
-
-
-# converting results dict to list of only words
-list_of_words = ocr_box_bounding(filename).get('text')
-# listing key words
-store_names = ['TESCO', 'MORRISONS', 'M & S', 'M & S FOOD', 'LIDL', 'SAINSBURY\'S', 'ASDA']
-total_price_words = ['TOTAL', 'SUBTOTAL', 'SUB-TOTAL']
-
-
-def extract_info(words, stores, totals):
     """Function looks for store name and receipt's total price """
 
     store_name, first_word_after_total, second_word_after_total = "", "", ""
 
     # capitalise words in the list
-    words = list(map(lambda x: x.upper(), words))
+    words = list(map(lambda x: x.upper(), list_of_words))
 
     # remove empty strings
-    while "" in words:
-        words.remove("")
+    while "" in list_of_words:
+        list_of_words.remove("")
 
     # find if store name present
-    for store in stores:
-        if store in words:
+    for store in store_names:
+        if store in list_of_words:
             store_name = store
             print('I think this is ', store)
 
     # find if total is in words list
-    check = any(item in words for item in totals)
+    check = any(item in words for item in total_price_words)
     if check:
         for i in reversed(words):
-            if i in totals:
+            if i in total_price_words:
                 i_index = words.index(i)
                 word1_after_total = any(map(str.isdigit, words[i_index+1]))
                 word2_after_total = any(map(str.isdigit, words[i_index+2]))
@@ -105,8 +99,5 @@ def extract_info(words, stores, totals):
 
     return store_name, first_word_after_total, second_word_after_total
 
-
-extract_info(list_of_words, store_names, total_price_words)
-
-
+ocr_box_bounding(filename)
 
