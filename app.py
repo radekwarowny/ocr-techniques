@@ -33,6 +33,7 @@ def home():
 
             # call the OCR function on it
             extracted_text = ocr_core(file)
+            extracted_info = localise_text_tesseract(file)
             size = 500, 500
             with Image.open(file) as im:
                 im.thumbnail(size, Image.ANTIALIAS)
