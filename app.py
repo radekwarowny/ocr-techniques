@@ -7,7 +7,7 @@ from ocr import ocr_core
 UPLOAD_FOLDER = '/static/uploads/'
 
 # allow files of a specific type
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__)
 

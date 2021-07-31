@@ -8,17 +8,22 @@
         {% if img_src %}
         <img class="mt-5 mb-5 border border-5 rounded-3" src="{{ img_src }}">
         {% else %}
+          <h1 class="fw-bolder">Tesco</h1>
+          <h2 class="fw-bolder">Morrison's</h2>
+          <h3 class="fw-bolder">Asda</h3>
+          <h4 class="fw-bolder">Lidl</h4>
+          <p>and many more to come</p>
         {% endif %}
       </div>
       <div class="col-lg-6">
         {% if msg %}
         <h1>{{ msg }}</h1>
         {% endif %}
-        <h1 class="display-5 fw-bold lh-1 mb-3">OCR Presentation</h1>
+        <h1 class="display-5 fw-bold lh-1 mb-3">OCR Demonstration</h1>
         <form class="container-sm mt-5" method=post enctype=multipart/form-data>
-          <div class="container-sm input-group">
+          <div class="container-sm input-group-sm">
             <input type="file" name="file" class="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-            <button class="btn btn-outline-secondary" type="submit" value="Upload">Process</button>
+            <button class="btn btn-outline-secondary mt-5" type="submit" value="Upload">Process Image</button>
           </div>
         </form>
       </div>
@@ -41,18 +46,18 @@
         {% if shop_name %}
         <p>I think this is {{ shop_name }}</p>
         {% elif shop_name == "" %}
-        <p>I'm not sure what the shop name is.</p>
+        <p>I'm not sure what the shop name is..</p>
         {% else %}
 
         {% endif %}
 
-        {% if (total1 != False) and (total1 != "") %}
+        {% if total1 %}
         <p>I think the total is {{ total1 }}</p>
         {% else %}
 
         {% endif %}
 
-        {% if (total2 != False) and (total2 != "") %}
+        {% if total2 %}
         <p>Is {{ total2}} the sub-total?</p>
         {% else %}
 
@@ -79,8 +84,5 @@
   </div>
 </div>
 
-<footer class="text-white-50 text-center mt-5 mb-2 fixed-bottom">
-  <p>Presentation for <a href="https://rt-app.io/" class="text-white">RT App</a>, by <a href="https://radekwarowny.github.io/" class="text-white">Radek Warowny</a>.</p>
-</footer>
 
 {% endblock content %}
