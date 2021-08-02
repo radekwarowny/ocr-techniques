@@ -25,8 +25,8 @@ def ocr_core(filename):
     words = list(map(lambda x: x.upper(), list_of_words))
 
     # remove empty strings
-    while "" in list_of_words:
-        list_of_words.remove("")
+    while "" in words:
+        words.remove("")
 
     # find if store name present
     for store in store_names:
@@ -49,10 +49,7 @@ def ocr_core(filename):
                 else:
                     pass
 
-
-    return list_of_words, store_name, first_word_after_total, second_word_after_total
-
-
+    return words, store_name, first_word_after_total, second_word_after_total
 
 
 
